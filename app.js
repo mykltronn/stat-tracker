@@ -1,4 +1,5 @@
-//current working problem is 
+//current working problem is in actSchema. Timestamps not working. Or maybe they are, but are only accessible through stat.timestamp() or something like that in the front-end.
+// also haven't incorporated authentication
 
 const express = require('express');
 const app = express();
