@@ -1,0 +1,29 @@
+{
+  "name": "seventh-week-project",
+  "version": "1.0.0",
+  "description": "## TIY Week Seven Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mykltronn/stat-tracker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mykltronn/stat-tracker/issues"
+  },
+  "homepage": "https://github.com/mykltronn/stat-tracker#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.0",
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "mongoose": "^4.10.8",
+    "mustache-express": "^1.2.5",
+    "passport": "^0.3.2",
+    "passport-http": "^0.3.0"
+  }
+}
