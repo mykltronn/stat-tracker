@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Stat Tracker</title>
+  </head>
+  <body>
+    {{#auth}}
+    <form class="new-activity" action="/api/activities/:id/stats" method="post">
+      <label for="new-activity">track an activity!</label>
+      <input type="text" name="new-activity"><br>
+
+      <button type="submit" name="button"></button>
+    </form>
+
+    <form class="new-stat" action="/api/activities/:id" method="post">
+      <label for="new-stat">How many did you do today?</label>
+      <input type="number" name="new-stat"><br>
+
+      <button type="submit" name="button"></button>
+    </form>
+
+    <h3>Here's where everything else will be listed</h3>
+    {{/auth}}
+    {{^auth}}
+    <h3>Please login to access API</h3>
+    <form class="login" action="/" method="post">
+      <label for="username">username</label>
+      <input type="text" name="username">
+
+      <label for="password">password</label>
+      <input type="password" name="password">
+
+      <button type="submit" name="submit-login"></button>
+    </form>
+
+
+    <h3>New user? Please register</h3>
+    <form class="newUser" action="/" method="post">
+      <label for="newusername">username</label>
+      <input type="text" name="newusername">
+
+      <label for="newpassword">password</label>
+      <input type="password" name="newpassword">
+
+      <button type="submit" name="submit-register">register</button>
+    </form>
+    {{/auth}}
+
+  </body>
+</html>
