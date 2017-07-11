@@ -1,7 +1,7 @@
 const express = require('express');
-const Activity = require('../models/actSchema.js')
+const Activity = require('../models/actSchema.js');
 //===================================
-function created_at(){
+function createdat(){
   var month;
   var date;
   var year;
@@ -72,7 +72,7 @@ router.route('/:act_id/stats')
       }
       else {
         console.log("new datum captured");
-        activity.stat.push( { "value": req.body.stat, "date": created_at() } );
+        activity.stat.push( { "value": req.body.stat, "date": createdat() } );
 
         activity.save(function(err) {
           if (err) {

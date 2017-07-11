@@ -8,10 +8,14 @@ const User = require('../models/userSchema.js')
 const Activity = require('../models/actSchema.js')
 const router = express.Router();
 const actRouter = require('./activity.js')
+const bcrypt = require('bcryptjs')
 //==============================================
 passport.use(new BasicStrategy(
   function(username, password, done) {
-    User.findOne( { name: username }, function(err, user){
+    console.log("basic strategy is running");
+    User.findOne( { username: username }, function(err, user){
+        console.log(username + " and also " + user);
+        console.log(user.password);
       if (user && bcrypt.compareSync(password, user.password)){
         return done(null, user);
       }
@@ -22,9 +26,8 @@ passport.use(new BasicStrategy(
 
 // req.user.name stores user, i think.
 // //==============================================
-//
-router.use(passport.authenticate('basic', { session: false }))
 
+router.use(passport.authenticate('basic', {session: false}))
 
 router.route('/activities')
   .get(function(req, res) {

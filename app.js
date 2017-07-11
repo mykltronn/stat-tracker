@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const mustacheExpress = require('mustache-express');
 const User = require('./models/userSchema.js')
+const bcrypt = require('bcryptjs')
 const router = express.Router();
 
 app.engine('mustache', mustacheExpress());
@@ -18,8 +19,9 @@ app.use(express.static('scripts'))
  //================================================================
 // routes
 
-// const route = require('./routes/home.js');
-// app.use(route);
+const route = require('./routes/home.js');
+app.use(route);
+
 
 const apiRouter = require('./routes/api.js');
 app.use('/api', apiRouter);
