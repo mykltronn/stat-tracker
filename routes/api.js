@@ -1,36 +1,30 @@
 const express = require('express');
 const passport = require('passport');
-const TokenStrategy = require('passport-accesstoken').Strategy; //TokenStrategy
+const BasicStrategy = require('passport-http').BasicStrategy;
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/stat-trackerdb')
 const User = require('../models/userSchema.js')
 const Activity = require('../models/actSchema.js')
-//===============================================
-
-// V this V is the setup for the passport-accesstoken strategy for Passport...
-
-// passport.use(new TokenStrategy(function(token, done){
-//   User.findOne({token: token}, functin(err, user) {
-//     if (err) {
-//       return done(err);
-//     }
-//
-//     if (!user) {
-//       return done(null, false);
-//     }
-//
-//     if (!user.verifyToken(token)) {
-      // return done(null, false);
-//     }
-//
-//     return done(null, user)
-//   })
-// }))
-
-//=================================================
-const actRouter = require('./activity.js')
 const router = express.Router();
+const actRouter = require('./activity.js')
+//==============================================
+passport.use(new BasicStrategy(
+  function(username, password, done) {
+    User.findOne( { name: username }, function(err, user){
+      if (user && bcrypt.compareSync(password, user.password)){
+        return done(null, user);
+      }
+      return done(null, false);
+    });
+  }
+));
+
+// req.user.name stores user, i think.
+// //==============================================
+//
+router.use(passport.authenticate('basic', { session: false }))
+
 
 router.route('/activities')
   .get(function(req, res) {

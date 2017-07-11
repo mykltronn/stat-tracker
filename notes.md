@@ -29,11 +29,12 @@ UX -- sort of.
 A user in this case, is theoretically only access data through something like postman.
 
 -- user starts with blank database
--- user 
+-- user
 
 
 
-
+Here's a very good response in stackoverflow for nested arrays inside objects
+https://stackoverflow.com/questions/11922383/access-process-nested-objects-arrays-or-json
 
 
 
