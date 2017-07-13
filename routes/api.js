@@ -10,12 +10,12 @@ const router = express.Router();
 const actRouter = require('./activity.js')
 const bcrypt = require('bcryptjs')
 //==============================================
+var currentUser;
 passport.use(new BasicStrategy(
   function(username, password, done) {
+    currentUser = username;
     console.log("basic strategy is running");
     User.findOne( { username: username }, function(err, user){
-        console.log(username + " and also " + user);
-        console.log(user.password);
       if (user && bcrypt.compareSync(password, user.password)){
         return done(null, user);
       }
@@ -59,19 +59,23 @@ router.route('/activities')
 
 router.delete('/stats/:stat_id', function(req, res) {
   console.log("user requests delete");
-  Activity.find(function(err, activities){
-    console.log('activities pulled for stat removal');
-    console.log(activities);
-    activities.stat.remove({_id: req.params.stat_id}, function(err, stat) {
-      if (err) {
-        console.log("something went wrong with stat DELETE");
-        res.send(err)
+  console.log(currentUser);
+  Activity.findOne({}, 'stat', function(err, stat){
+      for(i=0; i<stat.stat.length; i++){
+          console.log(stat.stat[i]._id);
+          if(stat.stat[i]._id === req.params.stat_id) {
+            stat.stat[i].remove({id: req.params.stat_id}, function(err, stat) {
+              if (err) {
+                console.log("something went wrong with stat DELETE");
+                res.send(err)
+              }
+              else{
+                console.log('stat removed: ' + stat);
+                res.send('stat removed from activity')
+              }
+            })
+          }
       }
-      else{
-        console.log('stat removed: ' + stat);
-        res.send('stat removed from activity')
-      }
-    })
   })
 })
 
