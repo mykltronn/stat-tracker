@@ -5,10 +5,12 @@ const actSchema = new mongoose.Schema({
   // userId:,
   title: {type: String, required: true},
   owner: {type: Schema.ObjectId, ref: 'User'},
-  stat: [{
-    value: {type: Number, required: true},
-    date: Date
-  }]
+  stat: [
+     {
+        value: Number,
+        date: Date
+    }
+  ]
 })
 
 const Activity = mongoose.model('Activity', actSchema);

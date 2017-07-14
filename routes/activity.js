@@ -72,7 +72,7 @@ router.route('/:act_id/stats')
       }
       else {
         console.log("new datum captured");
-        activity.stat.push( { "value": req.body.stat, "date": createdat() } );
+        activity.stat += { "value": req.body.value, "date": createdat() };
 
         activity.save(function(err) {
           if (err) {
