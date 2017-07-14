@@ -49,7 +49,7 @@ router.route('/activities')
       }
       else {
         console.log("new activity added to db!");
-        res.send('new activity added')
+        res.send('new activity added');
       }
 
     })
@@ -58,26 +58,32 @@ router.route('/activities')
 //=======================================================
 
 router.delete('/stats/:stat_id', function(req, res) {
-  console.log("user requests delete");
-  console.log(currentUser);
-  Activity.findOne({}, 'stat', function(err, stat){
-      for(i=0; i<stat.stat.length; i++){
-          console.log(stat.stat[i]._id);
-          if(stat.stat[i]._id === req.params.stat_id) {
-            stat.stat[i].remove({id: req.params.stat_id}, function(err, stat) {
-              if (err) {
-                console.log("something went wrong with stat DELETE");
-                res.send(err)
-              }
-              else{
-                console.log('stat removed: ' + stat);
-                res.send('stat removed from activity')
-              }
-            })
-          }
-      }
-  })
-})
+    console.log("user requests delete");
+    Activity.find({}, function(err, activity) {
+        console.log(activity);
+            for (i=0; i < activity.length; i++){
+                console.log(activity[i]);
+                    for (j=0; j < activity[i].stat.length; j++){
+                        if (activity[i].stat[j]._id ==  req.params.stat_id) {
+                            var deletePosition = activity[i].stat.indexOf(activity[i].stat[j])
+                            console.log(deletePosition);
+                            console.log("removing: " + activity[i].stat[j]);
+                            activity[i].stat.splice(deletePosition, 1);
+                            activity[i].save(function(err) {
+                              if (err) {
+                                  console.log("something went wrong saving the altered stat");
+                                  res.send(err)
+                              }
+                              else{
+                                  console.log("deleted");
+                                  res.send("stat removed")
+                              }
+                            })
+                        }
+                }
+            }
+        })
+    })
 
 router.use('/activities', actRouter);
 

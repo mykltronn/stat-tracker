@@ -69,10 +69,10 @@ router.route('/:act_id/stats')
     Activity.findById(req.params.act_id, function(err, activity) {
       if (err) {
         res.send("Could not locate activity with id: " + req.params.act_id)
-      }
+    }
       else {
         console.log("new datum captured");
-        activity.stat.push( { "value": req.body.stat, "date": created_at() } );
+        activity.stat.push( { "value": req.body.value, "date": created_at() } );
 
         activity.save(function(err) {
           if (err) {
@@ -80,7 +80,7 @@ router.route('/:act_id/stats')
             res.send(err)
           }
           else{
-            res.send("New datum entered")
+            res.send("New datum entered: \n \n" + activity)
           }
         })
       }
